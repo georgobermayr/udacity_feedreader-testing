@@ -21,30 +21,22 @@ $(function() {
          * allFeeds in app.js to be an empty array and refresh the
          * page?
          */
-         // Check for definition and existance of allFeeds array
+         // Check for definition and existence of allFeeds array
         it('are defined', function() {
             expect(allFeeds).toBeDefined();
             expect(allFeeds.length).not.toBe(0);
         });
 
-
-        /* TODO: Write a test that loops through each feed
-         * in the allFeeds object and ensures it has a URL defined
-         * and that the URL is not empty.
-         */
-        /* TODO: Write a test that loops through each feed
-         * in the allFeeds object and ensures it has a name defined
-         * and that the name is not empty.
-         */
+        // Check for existence and correct definition fo URL and name in the feeds
         describe('This feed has', function() {
             // Iterate through all elements of the allFeeds array
             allFeeds.forEach(function(allFeeds) {
-                // check for URL definition and existance
+                // check for URL definition and existence
                 it('a url', function() {
                     expect(allFeeds.url).toBeDefined();
                     expect(allFeeds.url.length).not.toBe(0);
                 });
-                // check for name definition and existance
+                // check for name definition and existence
                 it('and a name', function() {
                     expect(allFeeds.name).toBeDefined();
                     expect(allFeeds.name.length).not.toBe(0);
@@ -53,25 +45,15 @@ $(function() {
         });
     });
 
-
-    /* TODO: Write a new test suite named "The menu" */
+    // Test Suite to check if menu is not visible on launch and
+    // behaves correct on click
     describe('The menu', function() {
 
-        /* TODO: Write a test that ensures the menu element is
-         * hidden by default. You'll have to analyze the HTML and
-         * the CSS to determine how we're performing the
-         * hiding/showing of the menu element.
-         */
         // If the menu-hidden class is attached to the document
         // body the menu is not visibla
         it('is hidden on start', function() {
             expect($('body').hasClass('menu-hidden')).toBe(true);
         });
-         /* TODO: Write a test that ensures the menu changes
-          * visibility when the menu icon is clicked. This test
-          * should have two expectations: does the menu display when
-          * clicked and does it hide when clicked again.
-          */
         // First click should attach the class to the body and
         // therefore show the menu, secound click should detach the
         // class and hide the menu.
@@ -84,14 +66,8 @@ $(function() {
         });
     });
 
-    /* TODO: Write a new test suite named "Initial Entries" */
+    // Test suite to check for correct feed initialization
     describe('Initial Entries', function() {
-        /* TODO: Write a test that ensures when the loadFeed
-         * function is called and completes its work, there is at least
-         * a single .entry element within the .feed container.
-         * Remember, loadFeed() is asynchronous so this test wil require
-         * the use of Jasmine's beforeEach and asynchronous done() function.
-         */
         // Async load of the loadFeed function with the first entry
         beforeEach(function(done) {
             loadFeed(0, done);
@@ -103,19 +79,17 @@ $(function() {
         });
     });
 
-    /* TODO: Write a new test suite named "New Feed Selection" */
+    // Test suite for check on feed change
     describe('New Feed Selection', function() {
-        /* TODO: Write a test that ensures when a new feed is loaded
-         * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
-         */
-        // Get the currently show title on the page for later comparison
-        var oldTitle = $('.header-title').html();
+        // Declare comparison variable
+        var oldTitle;
 
         // Async load of the loadFeed function with
-        // different than current entry
-        beforeEach(function(done) {
-            loadFeed(2, done);
+        // different than entry 0
+        beforeEach(function(loadAnotherFeed) {
+            // Get the currently show title on the page for later comparison
+            oldTitle = $('.header-title').html();
+            loadFeed(1, loadAnotherFeed);
         });
 
         // Back to normal after execution of the test
